@@ -16,7 +16,6 @@ class StavkaPorudzbine extends Model
      * @var array
      */
     protected $fillable = [
-        'table',
         'porudzbina_id',
         'koktel_id',
         'kolicina',

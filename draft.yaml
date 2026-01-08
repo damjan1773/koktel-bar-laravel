@@ -1,6 +1,5 @@
 models:
   Korisnik:
-    table: users
     ime: string
     prezime: string
     uloga: string # konobar, sanker, menadzer
@@ -8,7 +7,6 @@ models:
       hasMany: Porudzbina
 
   Koktel:
-    table: kokteli
     naziv: string
     cena: decimal
     opis: text nullable
@@ -16,7 +14,6 @@ models:
       belongsToMany: Sastojak
 
   Sastojak:
-    table: sastojci
     naziv: string
     kolicina: decimal default:0
     jedinica: string
@@ -24,7 +21,6 @@ models:
       belongsToMany: Koktel
 
   Porudzbina:
-    table: porudzbine
     broj_stola: integer
     status: string default:created
     napomena: text nullable
@@ -34,7 +30,6 @@ models:
       hasMany: StavkaPorudzbine
 
   StavkaPorudzbine:
-    table: stavke_porudzbine
     porudzbina_id: id foreign:porudzbinas
     koktel_id: id foreign:koktels
     kolicina: integer default:1

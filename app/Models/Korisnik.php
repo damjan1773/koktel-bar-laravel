@@ -16,7 +16,6 @@ class Korisnik extends Model
      * @var array
      */
     protected $fillable = [
-        'table',
         'ime',
         'prezime',
         'uloga',

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Koktel;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+
+        // za usera
 
         User::updateOrCreate(
     ['email' => 'test@example.com'],
@@ -40,5 +43,23 @@ class DatabaseSeeder extends Seeder
         ['email' => 'menadzer@test.com'],
             ['name' => 'Menadzer', 'password' => Hash::make('password'), 'uloga' => 'menadzer']
         );
+
+        //za koktele
+
+        Koktel::updateOrCreate(
+    ['naziv' => 'Mojito'],
+    ['cena' => 900, 'opis' => 'Rum, menta, limeta']
+        );
+
+        Koktel::updateOrCreate(
+            ['naziv' => 'Martini'],
+            ['cena' => 1100, 'opis' => 'Džin, vermut']
+        );
+
+        Koktel::updateOrCreate(
+            ['naziv' => 'Whiskey Sour'],
+            ['cena' => 1200, 'opis' => 'Viski, limun']
+        );
+
     }
 }
