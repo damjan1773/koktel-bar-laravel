@@ -8,8 +8,18 @@ use App\Http\Controllers\SastojakController;
 use App\Http\Controllers\PorudzbinaController;
 
 Route::get('/konobar', fn () => view('konobar.dashboard'))->middleware('auth');
+Route::middleware(['auth', 'role:konobar'])->group(function () {
+    Route::get('/konobar/porudzbine', [PorudzbinaController::class, 'konobarIndex'])->name('konobar.porudzbine.index');
+    Route::get('/konobar/porudzbine/create', [PorudzbinaController::class, 'konobarCreate'])->name('konobar.porudzbine.create');
+    Route::post('/konobar/porudzbine', [PorudzbinaController::class, 'konobarStore'])->name('konobar.porudzbine.store');
+});
+
+
 Route::get('/sanker', fn () => view('sanker.dashboard'))->middleware('auth');
+
+
 Route::get('/menadzer', fn () => view('menadzer.dashboard'))->middleware('auth');
+
 
 
 Route::get('/', function () {
