@@ -1,0 +1,58 @@
+models:
+  Korisnik:
+    table: users
+    ime: string
+    prezime: string
+    uloga: string # konobar, sanker, menadzer
+    relationships:
+      hasMany: Porudzbina
+
+  Koktel:
+    naziv: string
+    cena: decimal
+    opis: text nullable
+    relationships:
+      belongsToMany: Sastojak
+
+  Sastojak:
+    naziv: string
+    kolicina: decimal default:0
+    jedinica: string
+    relationships:
+      belongsToMany: Koktel
+
+  Porudzbina:
+    broj_stola: integer
+    status: string default:created
+    napomena: text nullable
+    korisnik_id: id foreign:users
+    relationships:
+      belongsTo: Korisnik
+      hasMany: StavkaPorudzbine
+
+  StavkaPorudzbine:
+    porudzbina_id: id foreign:porudzbinas
+    koktel_id: id foreign:koktels
+    kolicina: integer default:1
+    jedinicna_cena: decimal
+    relationships:
+      belongsTo: Porudzbina, Koktel
+
+seeders:
+  KorisnikSeeder:
+  KoktelSeeder:
+  SastojakSeeder:
+  PorudzbinaSeeder:
+
+controllers:
+  KorisnikController:
+    resource: web
+
+  KoktelController:
+    resource: web
+
+  SastojakController:
+    resource: web
+
+  PorudzbinaController:
+    resource: web
