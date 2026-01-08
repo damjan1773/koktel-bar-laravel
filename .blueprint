@@ -8,12 +8,12 @@ created:
     - database/factories/SastojakFactory.php
     - database/factories/PorudzbinaFactory.php
     - database/factories/StavkaPorudzbineFactory.php
-    - database/migrations/2026_01_08_142409_create_korisniks_table.php
-    - database/migrations/2026_01_08_142410_create_koktels_table.php
-    - database/migrations/2026_01_08_142411_create_sastojaks_table.php
-    - database/migrations/2026_01_08_142412_create_porudzbinas_table.php
-    - database/migrations/2026_01_08_142413_create_stavka_porudzbines_table.php
-    - database/migrations/2026_01_08_142414_create_koktel_sastojak_table.php
+    - database/migrations/2026_01_08_153858_create_korisniks_table.php
+    - database/migrations/2026_01_08_153859_create_koktels_table.php
+    - database/migrations/2026_01_08_153900_create_sastojaks_table.php
+    - database/migrations/2026_01_08_153901_create_porudzbinas_table.php
+    - database/migrations/2026_01_08_153902_create_stavka_porudzbines_table.php
+    - database/migrations/2026_01_08_153903_create_koktel_sastojak_table.php
     - app/Models/Korisnik.php
     - app/Models/Koktel.php
     - app/Models/Sastojak.php
@@ -27,14 +27,9 @@ created:
     - tests/Feature/Http/Controllers/KoktelControllerTest.php
     - tests/Feature/Http/Controllers/SastojakControllerTest.php
     - tests/Feature/Http/Controllers/PorudzbinaControllerTest.php
-    - app/Http/Requests/KorisnikStoreRequest.php
-    - app/Http/Requests/KorisnikUpdateRequest.php
-    - app/Http/Requests/KoktelStoreRequest.php
-    - app/Http/Requests/KoktelUpdateRequest.php
-    - app/Http/Requests/SastojakStoreRequest.php
-    - app/Http/Requests/SastojakUpdateRequest.php
-    - app/Http/Requests/PorudzbinaStoreRequest.php
-    - app/Http/Requests/PorudzbinaUpdateRequest.php
+updated:
+    - routes/web.php
+skipped:
     - resources/views/korisnik/index.blade.php
     - resources/views/korisnik/create.blade.php
     - resources/views/korisnik/show.blade.php
@@ -51,12 +46,10 @@ created:
     - resources/views/porudzbina/create.blade.php
     - resources/views/porudzbina/show.blade.php
     - resources/views/porudzbina/edit.blade.php
-updated:
-    - routes/web.php
 models:
     User: { name: string, email: string, email_verified_at: 'timestamp nullable default:NULL', password: string, remember_token: 'string:100 nullable default:NULL' }
     Korisnik: { table: users, ime: string, prezime: string, uloga: string, relationships: { hasMany: Porudzbina } }
-    Koktel: { naziv: string, cena: decimal, opis: 'text nullable', relationships: { belongsToMany: Sastojak } }
-    Sastojak: { naziv: string, kolicina: 'decimal default:0', jedinica: string, relationships: { belongsToMany: Koktel } }
-    Porudzbina: { broj_stola: integer, status: 'string default:created', napomena: 'text nullable', korisnik_id: 'id foreign:users', relationships: { belongsTo: Korisnik, hasMany: StavkaPorudzbine } }
-    StavkaPorudzbine: { porudzbina_id: 'id foreign:porudzbinas', koktel_id: 'id foreign:koktels', kolicina: 'integer default:1', jedinicna_cena: decimal, relationships: { belongsTo: 'Porudzbina, Koktel' } }
+    Koktel: { table: kokteli, naziv: string, cena: decimal, opis: 'text nullable', relationships: { belongsToMany: Sastojak } }
+    Sastojak: { table: sastojci, naziv: string, kolicina: 'decimal default:0', jedinica: string, relationships: { belongsToMany: Koktel } }
+    Porudzbina: { table: porudzbine, broj_stola: integer, status: 'string default:created', napomena: 'text nullable', korisnik_id: 'id foreign:users', relationships: { belongsTo: Korisnik, hasMany: StavkaPorudzbine } }
+    StavkaPorudzbine: { table: stavke_porudzbine, porudzbina_id: 'id foreign:porudzbinas', koktel_id: 'id foreign:koktels', kolicina: 'integer default:1', jedinicna_cena: decimal, relationships: { belongsTo: 'Porudzbina, Koktel' } }

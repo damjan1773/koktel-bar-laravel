@@ -52,15 +52,18 @@ final class KoktelControllerTest extends TestCase
     #[Test]
     public function store_saves_and_redirects(): void
     {
+        $table = fake()->word();
         $naziv = fake()->word();
         $cena = fake()->randomFloat(/** decimal_attributes **/);
 
         $response = $this->post(route('koktels.store'), [
+            'table' => $table,
             'naziv' => $naziv,
             'cena' => $cena,
         ]);
 
         $koktels = Koktel::query()
+            ->where('table', $table)
             ->where('naziv', $naziv)
             ->where('cena', $cena)
             ->get();
@@ -112,10 +115,12 @@ final class KoktelControllerTest extends TestCase
     public function update_redirects(): void
     {
         $koktel = Koktel::factory()->create();
+        $table = fake()->word();
         $naziv = fake()->word();
         $cena = fake()->randomFloat(/** decimal_attributes **/);
 
         $response = $this->put(route('koktels.update', $koktel), [
+            'table' => $table,
             'naziv' => $naziv,
             'cena' => $cena,
         ]);
@@ -125,6 +130,7 @@ final class KoktelControllerTest extends TestCase
         $response->assertRedirect(route('koktels.index'));
         $response->assertSessionHas('koktel.id', $koktel->id);
 
+        $this->assertEquals($table, $koktel->table);
         $this->assertEquals($naziv, $koktel->naziv);
         $this->assertEquals($cena, $koktel->cena);
     }

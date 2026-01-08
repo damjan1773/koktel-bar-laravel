@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sastojaks', function (Blueprint $table) {
+        Schema::create('koktels', function (Blueprint $table) {
             $table->id();
+            $table->string('table');
             $table->string('naziv');
-            $table->decimal('kolicina')->default(0);
-            $table->string('jedinica');
+            $table->decimal('cena');
+            $table->text('opis')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sastojaks');
+        Schema::dropIfExists('koktels');
     }
 };

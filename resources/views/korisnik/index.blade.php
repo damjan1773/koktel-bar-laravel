@@ -1,7 +1,7 @@
-{{--
-    @extends('layouts.app')
+<h1>Korisnici</h1>
 
-    @section('content')
-        korisnik.index template
-    @endsection
---}}
+<ul>
+  @foreach($korisniks as $k)
+    <li>{{ $k->ime }} {{ $k->prezime }} | uloga: {{ $k->uloga }}</li>
+  @endforeach
+</ul>

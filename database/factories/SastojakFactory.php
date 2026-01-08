@@ -12,6 +12,7 @@ class SastojakFactory extends Factory
     public function definition(): array
     {
         return [
+            'table' => fake()->word(),
             'naziv' => fake()->word(),
             'kolicina' => fake()->randomFloat(0, 0, 9999999999.),
             'jedinica' => fake()->word(),

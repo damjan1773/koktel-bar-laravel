@@ -17,6 +17,7 @@ class Porudzbina extends Model
      * @var array
      */
     protected $fillable = [
+        'table',
         'broj_stola',
         'status',
         'napomena',

@@ -53,17 +53,20 @@ final class PorudzbinaControllerTest extends TestCase
     #[Test]
     public function store_saves_and_redirects(): void
     {
+        $table = fake()->word();
         $broj_stola = fake()->numberBetween(-10000, 10000);
         $status = fake()->word();
         $korisnik = Korisnik::factory()->create();
 
         $response = $this->post(route('porudzbinas.store'), [
+            'table' => $table,
             'broj_stola' => $broj_stola,
             'status' => $status,
             'korisnik_id' => $korisnik->id,
         ]);
 
         $porudzbinas = Porudzbina::query()
+            ->where('table', $table)
             ->where('broj_stola', $broj_stola)
             ->where('status', $status)
             ->where('korisnik_id', $korisnik->id)
@@ -116,11 +119,13 @@ final class PorudzbinaControllerTest extends TestCase
     public function update_redirects(): void
     {
         $porudzbina = Porudzbina::factory()->create();
+        $table = fake()->word();
         $broj_stola = fake()->numberBetween(-10000, 10000);
         $status = fake()->word();
         $korisnik = Korisnik::factory()->create();
 
         $response = $this->put(route('porudzbinas.update', $porudzbina), [
+            'table' => $table,
             'broj_stola' => $broj_stola,
             'status' => $status,
             'korisnik_id' => $korisnik->id,
@@ -131,6 +136,7 @@ final class PorudzbinaControllerTest extends TestCase
         $response->assertRedirect(route('porudzbinas.index'));
         $response->assertSessionHas('porudzbina.id', $porudzbina->id);
 
+        $this->assertEquals($table, $porudzbina->table);
         $this->assertEquals($broj_stola, $porudzbina->broj_stola);
         $this->assertEquals($status, $porudzbina->status);
         $this->assertEquals($korisnik->id, $porudzbina->korisnik_id);

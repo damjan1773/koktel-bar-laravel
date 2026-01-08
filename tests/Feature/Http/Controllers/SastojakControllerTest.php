@@ -52,17 +52,20 @@ final class SastojakControllerTest extends TestCase
     #[Test]
     public function store_saves_and_redirects(): void
     {
+        $table = fake()->word();
         $naziv = fake()->word();
         $kolicina = fake()->randomFloat(/** decimal_attributes **/);
         $jedinica = fake()->word();
 
         $response = $this->post(route('sastojaks.store'), [
+            'table' => $table,
             'naziv' => $naziv,
             'kolicina' => $kolicina,
             'jedinica' => $jedinica,
         ]);
 
         $sastojaks = Sastojak::query()
+            ->where('table', $table)
             ->where('naziv', $naziv)
             ->where('kolicina', $kolicina)
             ->where('jedinica', $jedinica)
@@ -115,11 +118,13 @@ final class SastojakControllerTest extends TestCase
     public function update_redirects(): void
     {
         $sastojak = Sastojak::factory()->create();
+        $table = fake()->word();
         $naziv = fake()->word();
         $kolicina = fake()->randomFloat(/** decimal_attributes **/);
         $jedinica = fake()->word();
 
         $response = $this->put(route('sastojaks.update', $sastojak), [
+            'table' => $table,
             'naziv' => $naziv,
             'kolicina' => $kolicina,
             'jedinica' => $jedinica,
@@ -130,6 +135,7 @@ final class SastojakControllerTest extends TestCase
         $response->assertRedirect(route('sastojaks.index'));
         $response->assertSessionHas('sastojak.id', $sastojak->id);
 
+        $this->assertEquals($table, $sastojak->table);
         $this->assertEquals($naziv, $sastojak->naziv);
         $this->assertEquals($kolicina, $sastojak->kolicina);
         $this->assertEquals($jedinica, $sastojak->jedinica);

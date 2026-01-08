@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class KorisnikController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $korisniks = Korisnik::all();
 
@@ -20,12 +20,12 @@ class KorisnikController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         return view('korisnik.create');
     }
 
-    public function store(KorisnikStoreRequest $request)
+    public function store(KorisnikStoreRequest $request): Response
     {
         $korisnik = Korisnik::create($request->validated());
 
@@ -34,21 +34,21 @@ class KorisnikController extends Controller
         return redirect()->route('korisniks.index');
     }
 
-    public function show(Request $request, Korisnik $korisnik)
+    public function show(Request $request, Korisnik $korisnik): Response
     {
         return view('korisnik.show', [
             'korisnik' => $korisnik,
         ]);
     }
 
-    public function edit(Request $request, Korisnik $korisnik)
+    public function edit(Request $request, Korisnik $korisnik): Response
     {
         return view('korisnik.edit', [
             'korisnik' => $korisnik,
         ]);
     }
 
-    public function update(KorisnikUpdateRequest $request, Korisnik $korisnik)
+    public function update(KorisnikUpdateRequest $request, Korisnik $korisnik): Response
     {
         $korisnik->update($request->validated());
 
@@ -57,7 +57,7 @@ class KorisnikController extends Controller
         return redirect()->route('korisniks.index');
     }
 
-    public function destroy(Request $request, Korisnik $korisnik)
+    public function destroy(Request $request, Korisnik $korisnik): Response
     {
         $korisnik->delete();
 

@@ -16,6 +16,7 @@ class Sastojak extends Model
      * @var array
      */
     protected $fillable = [
+        'table',
         'naziv',
         'kolicina',
         'jedinica',

@@ -1,7 +1,8 @@
-{{--
-    @extends('layouts.app')
+<h1>Porudzbine</h1>
 
-    @section('content')
-        porudzbina.index template
-    @endsection
---}}
+<ul>
+  @foreach($porudzbinas as $p)
+    <li>#{{ $p->id }} | sto: {{ $p->broj_stola }} | status: {{ $p->status }}</li>
+  @endforeach
+</ul>
+

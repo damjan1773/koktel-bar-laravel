@@ -16,6 +16,7 @@ class Koktel extends Model
      * @var array
      */
     protected $fillable = [
+        'table',
         'naziv',
         'cena',
         'opis',

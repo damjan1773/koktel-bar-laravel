@@ -15,6 +15,7 @@ return new class extends Migration
 
         Schema::create('porudzbinas', function (Blueprint $table) {
             $table->id();
+            $table->string('table');
             $table->integer('broj_stola');
             $table->string('status')->default('created');
             $table->text('napomena')->nullable();

@@ -14,6 +14,7 @@ class StavkaPorudzbineFactory extends Factory
     public function definition(): array
     {
         return [
+            'table' => fake()->word(),
             'porudzbina_id' => Porudzbina::factory(),
             'koktel_id' => Koktel::factory(),
             'kolicina' => fake()->numberBetween(-10000, 10000),

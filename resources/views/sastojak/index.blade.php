@@ -1,7 +1,8 @@
-{{--
-    @extends('layouts.app')
+<h1>Sastojci</h1>
 
-    @section('content')
-        sastojak.index template
-    @endsection
---}}
+<ul>
+  @foreach($sastojci as $s)
+    <li>{{ $s->ime }}</li>
+  @endforeach
+</ul>
+

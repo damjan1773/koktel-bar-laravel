@@ -1,7 +1,8 @@
-{{--
-    @extends('layouts.app')
+<h1>Kokteli</h1>
 
-    @section('content')
-        koktel.index template
-    @endsection
---}}
+<ul>
+  @foreach($kokteli as $k)
+    <li>{{ $k->ime }} | cena: {{ $k->cena }}</li>
+  @endforeach
+</ul>
+

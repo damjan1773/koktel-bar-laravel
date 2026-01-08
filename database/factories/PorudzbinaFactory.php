@@ -13,6 +13,7 @@ class PorudzbinaFactory extends Factory
     public function definition(): array
     {
         return [
+            'table' => fake()->word(),
             'broj_stola' => fake()->numberBetween(-10000, 10000),
             'status' => fake()->word(),
             'napomena' => fake()->text(),
