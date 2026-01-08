@@ -38,11 +38,7 @@ models:
     relationships:
       belongsTo: Porudzbina, Koktel
 
-seeders:
-  KorisnikSeeder:
-  KoktelSeeder:
-  SastojakSeeder:
-  PorudzbinaSeeder:
+seeders: Korisnik, Koktel, Sastojak, Porudzbina
 
 controllers:
   KorisnikController:
