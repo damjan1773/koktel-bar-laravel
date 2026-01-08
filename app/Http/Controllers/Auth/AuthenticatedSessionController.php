@@ -28,7 +28,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $request->session()->regenerate();
+
+        $uloga = $request->user()->uloga;
+
+        return match ($uloga) {
+            'konobar' => redirect()->intended('/konobar'),
+            'sanker' => redirect()->intended('/sanker'),
+            'menadzer' => redirect()->intended('/menadzer'),
+            default => redirect()->intended('/dashboard'),
+        };
     }
 
     /**
