@@ -7,6 +7,11 @@ use App\Http\Controllers\KoktelController;
 use App\Http\Controllers\SastojakController;
 use App\Http\Controllers\PorudzbinaController;
 
+Route::get('/konobar', fn () => view('konobar.dashboard'))->middleware('auth');
+Route::get('/sanker', fn () => view('sanker.dashboard'))->middleware('auth');
+Route::get('/menadzer', fn () => view('menadzer.dashboard'))->middleware('auth');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
