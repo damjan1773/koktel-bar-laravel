@@ -28,7 +28,6 @@ final class KoktelControllerTest extends TestCase
         $response->assertViewHas('koktels', $koktels);
     }
 
-
     #[Test]
     public function create_displays_view(): void
     {
@@ -37,7 +36,6 @@ final class KoktelControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('koktel.create');
     }
-
 
     #[Test]
     public function store_uses_form_request_validation(): void
@@ -74,7 +72,6 @@ final class KoktelControllerTest extends TestCase
         $response->assertSessionHas('koktel.id', $koktel->id);
     }
 
-
     #[Test]
     public function show_displays_view(): void
     {
@@ -87,7 +84,6 @@ final class KoktelControllerTest extends TestCase
         $response->assertViewHas('koktel', $koktel);
     }
 
-
     #[Test]
     public function edit_displays_view(): void
     {
@@ -99,7 +95,6 @@ final class KoktelControllerTest extends TestCase
         $response->assertViewIs('koktel.edit');
         $response->assertViewHas('koktel', $koktel);
     }
-
 
     #[Test]
     public function update_uses_form_request_validation(): void
@@ -134,7 +129,6 @@ final class KoktelControllerTest extends TestCase
         $this->assertEquals($naziv, $koktel->naziv);
         $this->assertEquals($cena, $koktel->cena);
     }
-
 
     #[Test]
     public function destroy_deletes_and_redirects(): void

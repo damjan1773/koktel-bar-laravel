@@ -28,7 +28,6 @@ final class KorisnikControllerTest extends TestCase
         $response->assertViewHas('korisniks', $korisniks);
     }
 
-
     #[Test]
     public function create_displays_view(): void
     {
@@ -37,7 +36,6 @@ final class KorisnikControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('korisnik.create');
     }
-
 
     #[Test]
     public function store_uses_form_request_validation(): void
@@ -77,7 +75,6 @@ final class KorisnikControllerTest extends TestCase
         $response->assertSessionHas('korisnik.id', $korisnik->id);
     }
 
-
     #[Test]
     public function show_displays_view(): void
     {
@@ -90,7 +87,6 @@ final class KorisnikControllerTest extends TestCase
         $response->assertViewHas('korisnik', $korisnik);
     }
 
-
     #[Test]
     public function edit_displays_view(): void
     {
@@ -102,7 +98,6 @@ final class KorisnikControllerTest extends TestCase
         $response->assertViewIs('korisnik.edit');
         $response->assertViewHas('korisnik', $korisnik);
     }
-
 
     #[Test]
     public function update_uses_form_request_validation(): void
@@ -140,7 +135,6 @@ final class KorisnikControllerTest extends TestCase
         $this->assertEquals($prezime, $korisnik->prezime);
         $this->assertEquals($uloga, $korisnik->uloga);
     }
-
 
     #[Test]
     public function destroy_deletes_and_redirects(): void

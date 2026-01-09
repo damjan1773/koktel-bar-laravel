@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 class Porudzbina extends Model
 {
     use HasFactory;
@@ -46,6 +45,4 @@ class Porudzbina extends Model
     {
         return $this->hasMany(StavkaPorudzbine::class);
     }
-
-
 }

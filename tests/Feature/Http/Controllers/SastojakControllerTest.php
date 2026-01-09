@@ -28,7 +28,6 @@ final class SastojakControllerTest extends TestCase
         $response->assertViewHas('sastojaks', $sastojaks);
     }
 
-
     #[Test]
     public function create_displays_view(): void
     {
@@ -37,7 +36,6 @@ final class SastojakControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('sastojak.create');
     }
-
 
     #[Test]
     public function store_uses_form_request_validation(): void
@@ -77,7 +75,6 @@ final class SastojakControllerTest extends TestCase
         $response->assertSessionHas('sastojak.id', $sastojak->id);
     }
 
-
     #[Test]
     public function show_displays_view(): void
     {
@@ -90,7 +87,6 @@ final class SastojakControllerTest extends TestCase
         $response->assertViewHas('sastojak', $sastojak);
     }
 
-
     #[Test]
     public function edit_displays_view(): void
     {
@@ -102,7 +98,6 @@ final class SastojakControllerTest extends TestCase
         $response->assertViewIs('sastojak.edit');
         $response->assertViewHas('sastojak', $sastojak);
     }
-
 
     #[Test]
     public function update_uses_form_request_validation(): void
@@ -140,7 +135,6 @@ final class SastojakControllerTest extends TestCase
         $this->assertEquals($kolicina, $sastojak->kolicina);
         $this->assertEquals($jedinica, $sastojak->jedinica);
     }
-
 
     #[Test]
     public function destroy_deletes_and_redirects(): void

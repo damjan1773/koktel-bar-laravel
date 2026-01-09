@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\KorisnikStoreRequest;
 use App\Http\Requests\KorisnikUpdateRequest;
 use App\Models\Korisnik;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class KorisnikController extends Controller
 {

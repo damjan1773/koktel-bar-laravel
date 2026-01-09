@@ -9,11 +9,10 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, string $role)
     {
-        if (!$request->user() || $request->user()->uloga !== $role) {
+        if (! $request->user() || $request->user()->uloga !== $role) {
             abort(403);
         }
 
         return $next($request);
     }
 }
-

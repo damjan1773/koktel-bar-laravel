@@ -1,36 +1,31 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KorisnikController;
 use App\Http\Controllers\KoktelController;
-use App\Http\Controllers\SastojakController;
+use App\Http\Controllers\KorisnikController;
 use App\Http\Controllers\PorudzbinaController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SastojakController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/konobar', fn () => view('konobar.dashboard'))->middleware('auth');
 Route::middleware(['auth', 'role:konobar'])->group(function () {
     Route::get('/konobar/porudzbine', [PorudzbinaController::class, 'konobarIndex'])->name('konobar.porudzbine.index');
     Route::get('/konobar/porudzbine/create', [PorudzbinaController::class, 'konobarCreate'])->name('konobar.porudzbine.create');
     Route::post('/konobar/porudzbine', [PorudzbinaController::class, 'konobarStore'])->name('konobar.porudzbine.store');
-    Route::get('/konobar/porudzbine/{porudzbina}/sent', [PorudzbinaController::class, 'konobarSent']) ->name('konobar.porudzbine.sent');
-    Route::post('/konobar/porudzbine/{porudzbina}/isporuceno', [PorudzbinaController::class, 'konobarIsporuceno']) ->name('konobar.porudzbine.isporuceno');
-
+    Route::get('/konobar/porudzbine/{porudzbina}/sent', [PorudzbinaController::class, 'konobarSent'])->name('konobar.porudzbine.sent');
+    Route::post('/konobar/porudzbine/{porudzbina}/isporuceno', [PorudzbinaController::class, 'konobarIsporuceno'])->name('konobar.porudzbine.isporuceno');
 
 });
 
 Route::middleware(['auth', 'role:sanker'])->group(function () {
     Route::get('/sanker/porudzbine', [PorudzbinaController::class, 'sankerIndex'])->name('sanker.porudzbine.index');
     Route::post('/sanker/porudzbine/{porudzbina}/spremno', [PorudzbinaController::class, 'sankerSpremno'])->name('sanker.porudzbine.spremno');
+    Route::get('/sanker', fn () => view('sanker.dashboard'))
+        ->name('sanker.dashboard');
+
 });
 
-
-
-Route::get('/sanker', fn () => view('sanker.dashboard'))->middleware('auth');
-
-
 Route::get('/menadzer', fn () => view('menadzer.dashboard'))->middleware('auth');
-
-
 
 Route::get('/', function () {
     return view('welcome');

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\KoktelStoreRequest;
 use App\Http\Requests\KoktelUpdateRequest;
 use App\Models\Koktel;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class KoktelController extends Controller
 {
