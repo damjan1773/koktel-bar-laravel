@@ -120,17 +120,22 @@ public function konobarSent(Porudzbina $porudzbina)
     return view('porudzbina.sent', compact('porudzbina'));
 }
 
-public function sankerIndex()
+public function sankerIndex(): View
 {
-    $porudzbine = \App\Models\Porudzbina::with('stavkaPorudzbines.koktel')
+    $uPripremi = Porudzbina::with('stavkaPorudzbines.koktel')
         ->where('status', 'u_pripremi')
         ->latest()
         ->get();
 
-    return view('sanker.porudzbine', compact('porudzbine'));
+    $spremne = Porudzbina::with('stavkaPorudzbines.koktel')
+        ->where('status', 'spremno')
+        ->latest()
+        ->get();
+
+    return view('sanker.porudzbine', compact('uPripremi', 'spremne'));
 }
 
-public function sankerSpremno(\App\Models\Porudzbina $porudzbina)
+public function sankerSpremno(Porudzbina $porudzbina): RedirectResponse
 {
     if ($porudzbina->status === 'u_pripremi') {
         $porudzbina->update(['status' => 'spremno']);
@@ -138,6 +143,7 @@ public function sankerSpremno(\App\Models\Porudzbina $porudzbina)
 
     return redirect()->route('sanker.porudzbine.index');
 }
+
 
 
 
