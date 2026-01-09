@@ -12,6 +12,8 @@ Route::middleware(['auth', 'role:konobar'])->group(function () {
     Route::get('/konobar/porudzbine', [PorudzbinaController::class, 'konobarIndex'])->name('konobar.porudzbine.index');
     Route::get('/konobar/porudzbine/create', [PorudzbinaController::class, 'konobarCreate'])->name('konobar.porudzbine.create');
     Route::post('/konobar/porudzbine', [PorudzbinaController::class, 'konobarStore'])->name('konobar.porudzbine.store');
+    Route::get('/konobar/porudzbine/{porudzbina}/sent', [PorudzbinaController::class, 'konobarSent']) ->name('konobar.porudzbine.sent');
+
 });
 
 

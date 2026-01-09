@@ -88,15 +88,16 @@ public function konobarCreate()
 public function konobarStore(Request $request)
 {
     $data = $request->validate([
-        'broj_stola' => ['required', 'integer', 'min:1'],
-        'stavke' => ['required', 'array', 'min:1'],
-        'stavke.*.koktel_id' => ['required', 'exists:koktels,id'],
-        'stavke.*.kolicina' => ['required', 'integer', 'min:1'],
+        'broj_stola' => ['required','integer','min:1'],
+        'stavke' => ['required','array','min:1'],
+        'stavke.*.koktel_id' => ['required','exists:koktels,id'],
+        'stavke.*.kolicina' => ['required','integer','min:1'],
     ]);
 
     $porudzbina = Porudzbina::create([
         'broj_stola' => $data['broj_stola'],
-        'status' => 'created',
+        'status' => 'u_pripremi',
+        'napomena' => null,
         'korisnik_id' => Auth::id(),
     ]);
 
@@ -111,6 +112,14 @@ public function konobarStore(Request $request)
         ]);
     }
 
-    return redirect()->route('konobar.porudzbine.index');
+    return redirect()->route('konobar.porudzbine.sent', $porudzbina);
 }
+
+public function konobarSent(Porudzbina $porudzbina)
+{
+    return view('porudzbina.sent', compact('porudzbina'));
+}
+
+
+
 }
