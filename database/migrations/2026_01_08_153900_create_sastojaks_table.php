@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('sastojaks', function (Blueprint $table) {
             $table->id();
-            $table->string('table');
             $table->string('naziv');
             $table->decimal('kolicina')->default(0);
             $table->string('jedinica');

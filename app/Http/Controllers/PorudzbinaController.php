@@ -80,8 +80,8 @@ class PorudzbinaController extends Controller
 
 public function konobarCreate()
 {
-    $kokteli = Koktel::orderBy('naziv')->get();
-
+    $kokteli = \App\Models\Koktel::orderBy('naziv')->get();
+    
     return view('porudzbina.create', compact('kokteli'));
 }
 

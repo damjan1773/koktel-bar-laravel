@@ -22,17 +22,14 @@ class Koktel extends Model
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array
      */
-    protected function casts(): array
-    {
-        return [
-            'id' => 'integer',
-            'cena' => 'decimal',
-        ];
-    }
+    protected $casts = [
+        'id' => 'integer',
+        'cena' => 'decimal:2',
+    ];
 
     public function sastojaks(): BelongsToMany
     {

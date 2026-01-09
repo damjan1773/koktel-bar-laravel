@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('koktels', function (Blueprint $table) {
             $table->id();
-            $table->string('table');
             $table->string('naziv');
             $table->decimal('cena');
             $table->text('opis')->nullable();
