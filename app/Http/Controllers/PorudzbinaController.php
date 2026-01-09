@@ -69,14 +69,24 @@ class PorudzbinaController extends Controller
         return redirect()->route('porudzbinas.index');
     }
 
-    public function konobarIndex()
-{
-    $porudzbine = Porudzbina::where('korisnik_id', Auth::id())
-        ->latest()
-        ->get();
+    public function konobarIndex(): \Illuminate\View\View
+    {
+        $userId = Auth::id();
 
-    return view('porudzbina.index', ['porudzbinas' => $porudzbine]);
-}
+        $uPripremi = Porudzbina::with('stavkaPorudzbines.koktel')
+            ->where('korisnik_id', $userId)
+            ->where('status', 'u_pripremi')
+            ->latest()
+            ->get();
+
+        $spremne = Porudzbina::with('stavkaPorudzbines.koktel')
+            ->where('korisnik_id', $userId)
+            ->where('status', 'spremno')
+            ->latest()
+            ->get();
+
+        return view('porudzbina.index', compact('uPripremi', 'spremne'));
+    }
 
 public function konobarCreate()
 {
@@ -119,6 +129,20 @@ public function konobarSent(Porudzbina $porudzbina)
 {
     return view('porudzbina.sent', compact('porudzbina'));
 }
+
+public function konobarIsporuceno(\App\Models\Porudzbina $porudzbina): \Illuminate\Http\RedirectResponse
+{
+    if ($porudzbina->korisnik_id !== Auth::id()) {
+        abort(403);
+    }
+
+    if ($porudzbina->status === 'spremno') {
+        $porudzbina->update(['status' => 'isporucena']);
+    }
+
+    return redirect()->route('konobar.porudzbine.index');
+}
+
 
 public function sankerIndex(): View
 {

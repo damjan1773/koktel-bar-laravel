@@ -13,6 +13,8 @@ Route::middleware(['auth', 'role:konobar'])->group(function () {
     Route::get('/konobar/porudzbine/create', [PorudzbinaController::class, 'konobarCreate'])->name('konobar.porudzbine.create');
     Route::post('/konobar/porudzbine', [PorudzbinaController::class, 'konobarStore'])->name('konobar.porudzbine.store');
     Route::get('/konobar/porudzbine/{porudzbina}/sent', [PorudzbinaController::class, 'konobarSent']) ->name('konobar.porudzbine.sent');
+    Route::post('/konobar/porudzbine/{porudzbina}/isporuceno', [PorudzbinaController::class, 'konobarIsporuceno']) ->name('konobar.porudzbine.isporuceno');
+
 
 });
 
