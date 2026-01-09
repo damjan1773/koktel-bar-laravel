@@ -16,6 +16,12 @@ Route::middleware(['auth', 'role:konobar'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'role:sanker'])->group(function () {
+    Route::get('/sanker/porudzbine', [PorudzbinaController::class, 'sankerIndex'])->name('sanker.porudzbine.index');
+    Route::post('/sanker/porudzbine/{porudzbina}/spremno', [PorudzbinaController::class, 'sankerSpremno'])->name('sanker.porudzbine.spremno');
+});
+
+
 
 Route::get('/sanker', fn () => view('sanker.dashboard'))->middleware('auth');
 

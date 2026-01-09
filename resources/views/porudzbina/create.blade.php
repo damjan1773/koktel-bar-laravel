@@ -1,3 +1,4 @@
+<x-app-layout>
 <form method="POST" action="{{ route('konobar.porudzbine.store') }}">
     @csrf
 
@@ -22,3 +23,4 @@
 
     <button class="border px-4 py-2">Sacuvaj</button>
 </form>
+</x-app-layout>
