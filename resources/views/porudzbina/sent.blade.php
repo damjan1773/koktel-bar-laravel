@@ -6,7 +6,13 @@
             <p><b>Broj porudzbine:</b> {{ $porudzbina->id }}</p>
             <p><b>Sto:</b> {{ $porudzbina->broj_stola }}</p>
             <p><b>Status:</b> {{ $porudzbina->status }}</p>
+            @if($porudzbina->napomena)
+                <div class="mt-2 text-sm text-gray-700">
+                    <b>Napomena:</b> {{ $porudzbina->napomena }}
+                </div>
+            @endif
         </div>
+
 
         <div class="mt-6 flex gap-3">
             <a class="border px-4 py-2" href="{{ route('konobar.porudzbine.create') }}">Nova porudzbina</a>

@@ -14,6 +14,11 @@
                            required value="{{ old('broj_stola') }}">
                     @error('broj_stola') <div class="text-red-600 text-sm">{{ $message }}</div> @enderror
                 </div>
+                
+                <div class="mb-4">
+                    <label class="block mb-1">Napomena</label>
+                    <textarea name="napomena" rows="3" class="border p-2 w-full">{{ old('napomena') }}</textarea>
+                </div>
 
                 <div class="space-y-2">
                     <div class="flex items-center justify-between">

@@ -23,6 +23,11 @@
                                     <li>{{ $stavka->koktel->naziv ?? 'Nepoznat koktel' }} × {{ $stavka->kolicina }}</li>
                                 @endforeach
                             </ul>
+                            @if(!empty($p->napomena))
+                              <div class="mt-2 text-sm text-gray-700">
+                                <b>Napomena:</b> {{ $p->napomena }}
+                              </div>
+                            @endif
                         </div>
                     </div>
                 @empty

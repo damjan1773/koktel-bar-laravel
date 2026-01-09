@@ -99,6 +99,7 @@ public function konobarStore(Request $request)
 {
     $data = $request->validate([
         'broj_stola' => ['required','integer','min:1'],
+        'napomena'   => ['nullable', 'string', 'max:1000'],
         'stavke' => ['required','array','min:1'],
         'stavke.*.koktel_id' => ['required','exists:koktels,id'],
         'stavke.*.kolicina' => ['required','integer','min:1'],
@@ -107,7 +108,7 @@ public function konobarStore(Request $request)
     $porudzbina = Porudzbina::create([
         'broj_stola' => $data['broj_stola'],
         'status' => 'u_pripremi',
-        'napomena' => null,
+        'napomena' => $data['napomena'] ?? null,
         'korisnik_id' => Auth::id(),
     ]);
 
