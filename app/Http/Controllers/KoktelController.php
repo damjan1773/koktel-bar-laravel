@@ -9,21 +9,20 @@ use Illuminate\Http\Request;
 
 class KoktelController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $koktels = Koktel::all();
+        $kokteli = \App\Models\Koktel::all();
 
-        return view('koktel.index', [
-            'koktels' => $koktels,
-        ]);
+        return view('koktel.index', compact('kokteli'));
+        
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('koktel.create');
     }
 
-    public function store(KoktelStoreRequest $request): Response
+    public function store(KoktelStoreRequest $request)
     {
         $koktel = Koktel::create($request->validated());
 
@@ -32,21 +31,21 @@ class KoktelController extends Controller
         return redirect()->route('koktels.index');
     }
 
-    public function show(Request $request, Koktel $koktel): Response
+    public function show(Request $request, Koktel $koktel)
     {
         return view('koktel.show', [
             'koktel' => $koktel,
         ]);
     }
 
-    public function edit(Request $request, Koktel $koktel): Response
+    public function edit(Request $request, Koktel $koktel)
     {
         return view('koktel.edit', [
             'koktel' => $koktel,
         ]);
     }
 
-    public function update(KoktelUpdateRequest $request, Koktel $koktel): Response
+    public function update(KoktelUpdateRequest $request, Koktel $koktel)
     {
         $koktel->update($request->validated());
 
@@ -55,7 +54,7 @@ class KoktelController extends Controller
         return redirect()->route('koktels.index');
     }
 
-    public function destroy(Request $request, Koktel $koktel): Response
+    public function destroy(Request $request, Koktel $koktel)
     {
         $koktel->delete();
 

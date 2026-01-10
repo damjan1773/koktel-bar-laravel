@@ -9,21 +9,19 @@ use Illuminate\Http\Request;
 
 class SastojakController extends Controller
 {
-    public function index(Request $request): Response
+    public function index()
     {
-        $sastojaks = Sastojak::all();
+        $sastojci = \App\Models\Sastojak::all();
 
-        return view('sastojak.index', [
-            'sastojaks' => $sastojaks,
-        ]);
+        return view('sastojak.index', compact('sastojci'));
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('sastojak.create');
     }
 
-    public function store(SastojakStoreRequest $request): Response
+    public function store(SastojakStoreRequest $request)
     {
         $sastojak = Sastojak::create($request->validated());
 
@@ -32,21 +30,21 @@ class SastojakController extends Controller
         return redirect()->route('sastojaks.index');
     }
 
-    public function show(Request $request, Sastojak $sastojak): Response
+    public function show(Request $request, Sastojak $sastojak)
     {
         return view('sastojak.show', [
             'sastojak' => $sastojak,
         ]);
     }
 
-    public function edit(Request $request, Sastojak $sastojak): Response
+    public function edit(Request $request, Sastojak $sastojak)
     {
         return view('sastojak.edit', [
             'sastojak' => $sastojak,
         ]);
     }
 
-    public function update(SastojakUpdateRequest $request, Sastojak $sastojak): Response
+    public function update(SastojakUpdateRequest $request, Sastojak $sastojak)
     {
         $sastojak->update($request->validated());
 
@@ -55,7 +53,7 @@ class SastojakController extends Controller
         return redirect()->route('sastojaks.index');
     }
 
-    public function destroy(Request $request, Sastojak $sastojak): Response
+    public function destroy(Request $request, Sastojak $sastojak)
     {
         $sastojak->delete();
 

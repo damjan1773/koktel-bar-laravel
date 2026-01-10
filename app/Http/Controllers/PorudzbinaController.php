@@ -165,4 +165,14 @@ class PorudzbinaController extends Controller
 
         return redirect()->route('sanker.porudzbine.index');
     }
+
+    public function menadzerIndex()
+    {
+        $porudzbine = \App\Models\Porudzbina::with('stavkaPorudzbines.koktel')
+            ->latest()
+            ->get();
+
+        return view('menadzer.porudzbine', compact('porudzbine'));
+    }
+
 }

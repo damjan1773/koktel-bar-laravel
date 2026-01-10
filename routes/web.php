@@ -33,8 +33,18 @@ Route::middleware(['auth', 'role:menadzer'])->group(function () {
     Route::resource('koktels', KoktelController::class);
     Route::resource('sastojaks', SastojakController::class);
 
-    Route::get('/menadzer/porudzbine', [PorudzbinaController::class, 'menadzerIndex']) ->name('menadzer.porudzbine.index');
-    
+    Route::get('/menadzer/porudzbine', [PorudzbinaController::class, 'menadzerIndex'])
+        ->name('menadzer.porudzbine.index');
+
+    Route::get('/menadzer/porudzbine/{porudzbina}/edit', [PorudzbinaController::class, 'menadzerEdit'])
+        ->name('menadzer.porudzbine.edit');
+
+    Route::put('/menadzer/porudzbine/{porudzbina}', [PorudzbinaController::class, 'menadzerUpdate'])
+        ->name('menadzer.porudzbine.update');
+
+    Route::delete('/menadzer/porudzbine/{porudzbina}', [PorudzbinaController::class, 'menadzerDestroy'])
+        ->name('menadzer.porudzbine.destroy');
+
 });
 
 Route::get('/', function () {
