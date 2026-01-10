@@ -59,4 +59,23 @@ class SastojakController extends Controller
 
         return redirect()->route('sastojaks.index');
     }
+
+    public function plus(Request $request, Sastojak $sastojak)
+    {
+        $delta = (float) ($request->input('delta', 1)); 
+        $sastojak->increment('kolicina', $delta);
+
+        return back()->with('success', 'Stanje povećano.');
+    }
+
+    public function minus(Request $request, Sastojak $sastojak)
+    {
+        $delta = (float) $request->input('delta', 1);
+
+        $novo = max(0, (float) $sastojak->kolicina - $delta);
+
+        $sastojak->update(['kolicina' => $novo]);
+
+        return back()->with('success', 'Stanje smanjeno.');
+    }
 }

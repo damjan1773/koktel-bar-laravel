@@ -45,6 +45,12 @@ Route::middleware(['auth', 'role:menadzer'])->group(function () {
     Route::delete('/menadzer/porudzbine/{porudzbina}', [PorudzbinaController::class, 'menadzerDestroy'])
         ->name('menadzer.porudzbine.destroy');
 
+    Route::patch('/sastojaks/{sastojak}/plus', [SastojakController::class, 'plus'])
+        ->name('sastojaks.plus');
+
+    Route::patch('/sastojaks/{sastojak}/minus', [SastojakController::class, 'minus'])
+        ->name('sastojaks.minus');
+
 });
 
 Route::get('/', function () {

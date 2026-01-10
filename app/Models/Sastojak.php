@@ -30,7 +30,7 @@ class Sastojak extends Model
     {
         return [
             'id' => 'integer',
-            'kolicina' => 'decimal',
+            'kolicina' => 'float',
         ];
     }
 

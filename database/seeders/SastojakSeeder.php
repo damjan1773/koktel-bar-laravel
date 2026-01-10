@@ -12,6 +12,16 @@ class SastojakSeeder extends Seeder
      */
     public function run(): void
     {
-        Sastojak::factory()->count(5)->create();
+        $data = [
+            ['naziv' => 'Led',   'kolicina' => 5000, 'jedinica' => 'g'],
+            ['naziv' => 'Votka', 'kolicina' => 3000, 'jedinica' => 'ml'],
+            ['naziv' => 'Viski', 'kolicina' => 2000, 'jedinica' => 'ml'],
+            ['naziv' => 'Rum',   'kolicina' => 2000, 'jedinica' => 'ml'],
+            ['naziv' => 'Limeta','kolicina' => 30,   'jedinica' => 'kom'],
+        ];
+
+        foreach ($data as $row) {
+            Sastojak::create($row);
+        }
     }
 }
