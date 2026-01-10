@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Koktel;
 
 class StavkaPorudzbine extends Model
 {
@@ -37,13 +38,14 @@ class StavkaPorudzbine extends Model
         ];
     }
 
-    public function porudzbina(): BelongsTo
+    public function koktel()
     {
-        return $this->belongsTo(Porudzbina::class);
+        return $this->belongsTo(\App\Models\Koktel::class, 'koktel_id');
     }
 
-    public function koktel(): BelongsTo
+    public function stavkaPorudzbines()
     {
-        return $this->belongsTo(Koktel::class);
+        return $this->hasMany(\App\Models\StavkaPorudzbine::class, 'porudzbina_id');
     }
+
 }

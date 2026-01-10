@@ -12,23 +12,23 @@
                     <ul class="ml-4 list-disc text-sm mt-2">
                         @foreach($p->stavkaPorudzbines as $stavka)
                             <li>
-                                {{ $stavka->koktel?->ime ?? $stavka->koktel?->naziv ?? 'N/A' }}
+                                {{ $stavka->koktel->naziv ?? $stavka->koktel->ime ?? 'N/A' }}
                             </li>
                         @endforeach
                     </ul>
                 </div>
-
+                
                 <div class="flex gap-2">
-                    <a href="{{ route('porudzbinas.edit', $p) }}"
-                       class="border px-3 py-1 rounded">
-                        Izmeni
-                    </a>
+                    
+                    <a href="{{ route('menadzer.porudzbine.edit', $p) }}" class="border px-3 py-1 rounded">Izmeni</a>
 
+                    
                     <form method="POST"
-                          action="{{ route('porudzbinas.destroy', $p) }}"
-                          onsubmit="return confirm('Obrisati porudžbinu?')">
+                          action="{{ route('menadzer.porudzbine.destroy', $p) }}"
+                          onsubmit="return confirm('Obrisati porudzbinu?')">
                         @csrf
                         @method('DELETE')
+
                         <button class="border px-3 py-1 rounded">
                             Obrisi
                         </button>
@@ -40,3 +40,4 @@
         @endforelse
     </div>
 </x-app-layout>
+

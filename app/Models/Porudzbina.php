@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\StavkaPorudzbine;
 
 class Porudzbina extends Model
 {
@@ -41,8 +42,9 @@ class Porudzbina extends Model
         return $this->belongsTo(Korisnik::class);
     }
 
-    public function stavkaPorudzbines(): HasMany
+    public function stavkaPorudzbines()
     {
-        return $this->hasMany(StavkaPorudzbine::class);
+        return $this->hasMany(\App\Models\StavkaPorudzbine::class, 'porudzbina_id');
     }
+
 }

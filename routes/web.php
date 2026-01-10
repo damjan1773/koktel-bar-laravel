@@ -58,7 +58,7 @@ Route::get('/dashboard', function () {
 Route::resource('korisnici', KorisnikController::class);
 Route::resource('kokteli', KoktelController::class);
 Route::resource('sastojci', SastojakController::class);
-Route::resource('porudzbine', PorudzbinaController::class);
+Route::resource('porudzbinas', PorudzbinaController::class) ->only(['edit', 'update']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

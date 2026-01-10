@@ -46,18 +46,24 @@ class PorudzbinaController extends Controller
 
     public function edit(Request $request, Porudzbina $porudzbina)
     {
-        return view('porudzbina.edit', [
-            'porudzbina' => $porudzbina,
-        ]);
+        return view('menadzer.porudzbina-edit', compact('porudzbina'));
     }
 
-    public function update(PorudzbinaUpdateRequest $request, Porudzbina $porudzbina)
+    public function update(Request $request, Porudzbina $porudzbina)
     {
-        $porudzbina->update($request->validated());
+        $request->validate([
+            'broj_stola' => 'required|integer|min:1',
+            'status' => 'required|in:u_pripremi,spremno,isporucena',
+        ]);
 
-        $request->session()->flash('porudzbina.id', $porudzbina->id);
+        $porudzbina->update([
+            'broj_stola' => $request->broj_stola,
+            'status' => $request->status,
+        ]);
 
-        return redirect()->route('porudzbinas.index');
+        return redirect()
+            ->route('menadzer.porudzbine.index')
+            ->with('success', 'Porudžbina izmenjena');
     }
 
     public function destroy(Request $request, Porudzbina $porudzbina)
@@ -168,11 +174,63 @@ class PorudzbinaController extends Controller
 
     public function menadzerIndex()
     {
-        $porudzbine = \App\Models\Porudzbina::with('stavkaPorudzbines.koktel')
+        $porudzbine = Porudzbina::with(['stavkaPorudzbines.koktel'])
             ->latest()
             ->get();
 
         return view('menadzer.porudzbine', compact('porudzbine'));
+    }
+
+    public function menadzerEdit(Porudzbina $porudzbina)
+    {
+        $porudzbina->load('stavkaPorudzbines.koktel');
+        $kokteli = Koktel::orderBy('naziv')->get();
+
+        return view('menadzer.porudzbina-edit', compact('porudzbina', 'kokteli'));
+    }
+
+    public function menadzerUpdate(Request $request, Porudzbina $porudzbina)
+    {
+        $data = $request->validate([
+            'broj_stola' => ['required','integer','min:1'],
+            'status' => ['required','string'],
+            'stavke' => ['required','array','min:1'],
+            'stavke.*.koktel_id' => ['required','exists:koktels,id'],
+            'stavke.*.kolicina' => ['required','integer','min:1'],
+        ]);
+
+        
+        $porudzbina->update([
+            'broj_stola' => $data['broj_stola'],
+            'status' => $data['status'],
+        ]);
+
+        
+        $porudzbina->stavkaPorudzbines()->delete();
+
+        foreach ($data['stavke'] as $s) {
+            $koktel = \App\Models\Koktel::findOrFail($s['koktel_id']);
+
+            $porudzbina->stavkaPorudzbines()->create([
+                'koktel_id' => $koktel->id,
+                'kolicina' => $s['kolicina'],
+                'jedinicna_cena' => $koktel->cena,
+            ]);
+        }
+
+        return redirect()->route('menadzer.porudzbine.index')
+            ->with('success', 'Porudžbina je izmenjena.');
+    }
+
+    public function menadzerDestroy(Porudzbina $porudzbina)
+    {
+        
+        $porudzbina->stavkaPorudzbines()->delete();
+
+        $porudzbina->delete();
+
+        return redirect()->route('menadzer.porudzbine.index')
+            ->with('success', 'Porudzbina obrisana.');
     }
 
 }
