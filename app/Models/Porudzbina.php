@@ -22,6 +22,7 @@ class Porudzbina extends Model
         'status',
         'napomena',
         'korisnik_id',
+        'isporuceno_at',
     ];
 
     /**

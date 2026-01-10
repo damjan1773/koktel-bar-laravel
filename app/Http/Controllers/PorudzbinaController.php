@@ -142,7 +142,10 @@ class PorudzbinaController extends Controller
         }
 
         if ($porudzbina->status === 'spremno') {
-            $porudzbina->update(['status' => 'isporucena']);
+            $porudzbina->update([
+                'status' => 'isporuceno',
+                'isporuceno_at' => now(),
+            ]);
         }
 
         return redirect()->route('konobar.porudzbine.index');
@@ -231,6 +234,23 @@ class PorudzbinaController extends Controller
 
         return redirect()->route('menadzer.porudzbine.index')
             ->with('success', 'Porudzbina obrisana.');
+    }
+
+    public function presekSmene()
+    {
+        $porudzbine = Porudzbina::with('stavkaPorudzbines.koktel')
+            ->where('status', 'isporuceno')
+            ->whereDate('isporuceno_at', today())
+            ->latest('isporuceno_at')
+            ->get();
+
+        $ukupno = $porudzbine->sum(function ($p) {
+            return $p->stavkaPorudzbines->sum(function ($s) {
+                return ($s->kolicina ?? 0) * ($s->koktel->cena ?? 0);
+            });
+        });
+
+        return view('menadzer.presek-smene', compact('porudzbine', 'ukupno'));
     }
 
 }

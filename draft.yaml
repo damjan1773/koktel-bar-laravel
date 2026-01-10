@@ -2,7 +2,7 @@ models:
   Korisnik:
     ime: string
     prezime: string
-    uloga: string # konobar, sanker, menadzer
+    uloga: string
     relationships:
       hasMany: Porudzbina
 

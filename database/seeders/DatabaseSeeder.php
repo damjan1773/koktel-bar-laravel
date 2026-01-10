@@ -56,5 +56,8 @@ class DatabaseSeeder extends Seeder
             ['cena' => 1200, 'opis' => 'Viski, limun']
         );
 
+        $this->call(KoktelSeeder::class);
+
+
     }
 }

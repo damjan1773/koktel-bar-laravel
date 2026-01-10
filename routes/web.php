@@ -51,6 +51,9 @@ Route::middleware(['auth', 'role:menadzer'])->group(function () {
     Route::patch('/sastojaks/{sastojak}/minus', [SastojakController::class, 'minus'])
         ->name('sastojaks.minus');
 
+    Route::get('/menadzer/presek-smene', [PorudzbinaController::class, 'presekSmene'])
+        ->name('menadzer.presek_smene');
+
 });
 
 Route::get('/', function () {
