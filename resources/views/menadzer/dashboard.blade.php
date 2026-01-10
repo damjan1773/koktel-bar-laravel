@@ -1,15 +1,20 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Menadzer Dashboard
-        </h2>
-    </x-slot>
+    <div class="max-w-5xl mx-auto p-6 space-y-6">
+        <h1 class="text-2xl font-bold">Menadzer Dashboard</h1>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                Ovo je dashboard.
-            </div>
+        <div class="flex gap-3">
+            <a href="{{ route('koktels.index') }}" class="border px-4 py-2 rounded">
+                Kokteli
+            </a>
+
+            <a href="{{ route('sastojaks.index') }}" class="border px-4 py-2 rounded">
+                Sastojci
+            </a>
+            
+             <a href="{{ route('menadzer.porudzbine.index') }}" class="border px-4 py-2 rounded">
+                Porudzbine
+            </a> 
         </div>
     </div>
 </x-app-layout>
+

@@ -25,7 +25,17 @@ Route::middleware(['auth', 'role:sanker'])->group(function () {
 
 });
 
-Route::get('/menadzer', fn () => view('menadzer.dashboard'))->middleware('auth');
+Route::middleware(['auth', 'role:menadzer'])->group(function () {
+
+    Route::get('/menadzer', fn () => view('menadzer.dashboard'))
+        ->name('menadzer.dashboard');
+
+    Route::resource('koktels', KoktelController::class);
+    Route::resource('sastojaks', SastojakController::class);
+
+    Route::get('/menadzer/porudzbine', [PorudzbinaController::class, 'menadzerIndex']) ->name('menadzer.porudzbine.index');
+    
+});
 
 Route::get('/', function () {
     return view('welcome');

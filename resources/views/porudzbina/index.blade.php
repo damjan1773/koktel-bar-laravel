@@ -2,6 +2,10 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Porudzbine (Konobar)
+            <a href="{{ route('konobar.porudzbine.create') }}"
+            class="border px-4 py-2 rounded">
+            Nova porudzbina
+          </a>
         </h2>
     </x-slot>
 
