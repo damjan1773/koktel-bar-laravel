@@ -4,6 +4,9 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -19,28 +22,40 @@ jobs:
           extensions: mbstring, pdo_sqlite, sqlite3
           coverage: none
 
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Prepare app key
+      - name: Prepare Laravel app
         run: |
           cp .env.example .env
           php artisan key:generate
+          php artisan config:clear
+          php artisan cache:clear
+
+      - name: Prepare SQLite database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
 
       - name: Run migrations (sqlite)
         env:
           DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-          php artisan migrate --force
+          DB_DATABASE: ${{ github.workspace }}/database/database.sqlite
+        run: php artisan migrate --force
 
-      - name: Run Pint
+      - name: Run Pint (check only)
         run: ./vendor/bin/pint --test
 
       - name: Run tests
         env:
           DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
+          DB_DATABASE: ${{ github.workspace }}/database/database.sqlite
         run: php artisan test
