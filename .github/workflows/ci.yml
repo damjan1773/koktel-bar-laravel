@@ -36,6 +36,14 @@ jobs:
       - name: Prepare Laravel app
         run: |
           cp .env.example .env
+
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=${{ github.workspace }}/database/database.sqlite" >> .env
+
+          echo "CACHE_DRIVER=array" >> .env
+          echo "SESSION_DRIVER=array" >> .env
+          echo "QUEUE_CONNECTION=sync" >> .env
+
           php artisan key:generate
 
       - name: Prepare SQLite database
