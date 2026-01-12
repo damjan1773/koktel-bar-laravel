@@ -9,6 +9,11 @@
 
             <a href="{{ route('menadzer.porudzbine.index') }}" class="border px-4 py-2 rounded">Porudzbine</a>
 
+            <a href="{{ route('menadzer.presek_smene') }}"
+                class="border px-4 py-2 rounded">
+                Presek smene
+            </a>
+
         </div>
     </div>
 </x-app-layout>
